@@ -1,6 +1,7 @@
 package com.asergeev.imhere.activity;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -9,13 +10,22 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.asergeev.imhere.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class Drawer extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+    TextView name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +33,7 @@ public class Drawer extends AppCompatActivity
         setContentView(R.layout.drawer);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
-
+        mAuth = FirebaseAuth.getInstance();
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -34,7 +44,17 @@ public class Drawer extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        View header = navigationView.getHeaderView(0);
+        name = (TextView)header.findViewById(R.id.name);
 
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser == null) {
+            // No user is signed in
+        } else {
+            // User logged in
+            currentUser.getDisplayName();
+            name.setText(currentUser.getDisplayName());
+        }
         //add this line to display menu1 when the activity is loaded
         displaySelectedScreen(R.id.nav_menu1);
     }

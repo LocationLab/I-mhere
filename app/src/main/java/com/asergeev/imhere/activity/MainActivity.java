@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,9 +17,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.asergeev.imhere.Manifest;
 import com.asergeev.imhere.R;
 import com.asergeev.imhere.app.Config;
 import com.asergeev.imhere.util.NotificationUtils;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.messaging.FirebaseMessaging;
@@ -28,63 +33,128 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
     private BroadcastReceiver mRegistrationBroadcastReceiver;
     private TextView txtRegId, txtMessage;
-
+    private FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mAuth = FirebaseAuth.getInstance();
 
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser == null) {
+            // No user is signed in
+            setContentView(R.layout.activity_main);
 
+            child = (Button) findViewById(R.id.angry_btn);
 
-        setContentView(R.layout.activity_main);
+            child.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-        child = (Button) findViewById(R.id.angry_btn);
-
-        child.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(MainActivity.this, Child.class);
-                startActivity(intent);
-
-            }
-        });
-        par = (Button) findViewById(R.id.par);
-        par.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, Parent.class);
-                startActivity(intent);
-            }
-        });
-
-        mRegistrationBroadcastReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                // checking for type intent filter
-                if (intent.getAction().equals(Config.REGISTRATION_COMPLETE)) {
-                    // gcm successfully registered
-                    // now subscribe to `global` topic to receive app wide notifications
-                    FirebaseMessaging.getInstance().subscribeToTopic(Config.TOPIC_GLOBAL);
-
-                    displayFirebaseRegId();
-
-                } else if (intent.getAction().equals(Config.PUSH_NOTIFICATION)) {
-                    // new push notification is received
-
-                    String message = intent.getStringExtra("message");
-
-                    Toast.makeText(getApplicationContext(), "Push notification: " + message, Toast.LENGTH_LONG).show();
-                    Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(MainActivity.this, Child.class);
+                    startActivity(intent);
 
                 }
-            }
-        };
-        displayFirebaseRegId();
+            });
+            par = (Button) findViewById(R.id.par);
+            par.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(MainActivity.this, Parent.class);
+                    startActivity(intent);
+                }
+            });
 
-        // Fetches reg id from shared preferences
-        // and displays on the screen
+            mRegistrationBroadcastReceiver = new BroadcastReceiver() {
+                @Override
+                public void onReceive(Context context, Intent intent) {
+                    // checking for type intent filter
+                    if (intent.getAction().equals(Config.REGISTRATION_COMPLETE)) {
+                        // gcm successfully registered
+                        // now subscribe to `global` topic to receive app wide notifications
+                        FirebaseMessaging.getInstance().subscribeToTopic(Config.TOPIC_GLOBAL);
+
+                        displayFirebaseRegId();
+
+                    } else if (intent.getAction().equals(Config.PUSH_NOTIFICATION)) {
+                        // new push notification is received
+
+                        String message = intent.getStringExtra("message");
+
+                        Toast.makeText(getApplicationContext(), "Push notification: " + message, Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
+
+                    }
+                }
+            };
+            displayFirebaseRegId();
+
+            ActivityCompat.requestPermissions(MainActivity.this,
+
+                    new String[]{
+
+                            android.Manifest.permission.ACCESS_FINE_LOCATION
+
+                    },
+
+                    1);
+            // Fetches reg id from shared preferences
+            // and displays on the screen
+
+        } else {
+            // User logged in
+            Intent intent = new Intent(MainActivity.this, Drawer.class);
+            startActivity(intent);
+            finish();
+
+        }
+
+
 
     }
+    @Override
+
+    public void onRequestPermissionsResult(int requestCode,
+
+                                           String permissions[], int[] grantResults) {
+
+        switch (requestCode) {
+
+            case 1: {
+
+
+
+                // If request is cancelled, the result arrays are empty.
+
+                if (grantResults.length > 0
+
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+
+
+                    // permission was granted, yay!
+
+                } else {
+
+
+
+                    // permission denied, boo!
+
+                    Toast.makeText(MainActivity.this, "Permission denied to write your External storage", Toast.LENGTH_SHORT).show();
+
+                }
+
+                return;
+
+            }
+
+
+
+
+
+        }
+
+    }
+
     private void displayFirebaseRegId() {
         SharedPreferences pref = getApplicationContext().getSharedPreferences(Config.SHARED_PREF, 0);
         String regId = pref.getString("regId", null);
