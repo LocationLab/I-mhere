@@ -32,10 +32,6 @@ public class Menu3 extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         //you can set the title for your toolbar here for different fragments different titles
         getActivity().setTitle("Setup");
-        try{
-            FirebaseMessaging.getInstance().subscribeToTopic("pushNotifications");
-        }catch (Exception e){
-            Log.e("Error", String.valueOf(e));
-        }
+
     }
 }

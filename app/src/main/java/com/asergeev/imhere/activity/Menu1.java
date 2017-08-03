@@ -66,7 +66,7 @@ public class Menu1 extends Fragment {
             @Override
             public void onMapReady(GoogleMap mMap) {
                 googleMap = mMap;
-
+            /*
                 try {
                     boolean success = googleMap.setMapStyle(
                             MapStyleOptions.loadRawResourceStyle(
@@ -80,6 +80,7 @@ public class Menu1 extends Fragment {
                 }catch (Resources.NotFoundException e){
                     Log.e("Error", "Can't find style. Error: ", e);
                 }
+                */
                 if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                     // TODO: Consider calling
                     //    ActivityCompat#requestPermissions

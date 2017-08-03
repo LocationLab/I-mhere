@@ -73,10 +73,12 @@ public class Child extends AppCompatActivity {
                     }
                 });
         try{
-            FirebaseMessaging.getInstance().subscribeToTopic("pushNotifications");
+            FirebaseMessaging.getInstance().subscribeToTopic(a);
         }catch (Exception e){
             Log.e("Error", String.valueOf(e));
         }
+
+
     }
     public static String generateString() {
         String uuid = UUID.randomUUID().toString().replace("-","").substring(0,6);
