@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "182165118782-3fjnc1h40ulp5f6e7nu2lm534trhbt9l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.asergeev.imhere",
+            "certificate_hash": "a11101f8cb9632825c7716094a26be3cf93195d2"
+          }
+        },
+        {
           "client_id": "182165118782-ie0hveglouj7m80vbnm91661jperj0h3.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

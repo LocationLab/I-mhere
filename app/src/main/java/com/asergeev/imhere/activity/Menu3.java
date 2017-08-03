@@ -3,11 +3,13 @@ package com.asergeev.imhere.activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.asergeev.imhere.R;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 /**
  * Created by Belal on 18/09/16.
@@ -30,5 +32,10 @@ public class Menu3 extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         //you can set the title for your toolbar here for different fragments different titles
         getActivity().setTitle("Setup");
+        try{
+            FirebaseMessaging.getInstance().subscribeToTopic("pushNotifications");
+        }catch (Exception e){
+            Log.e("Error", String.valueOf(e));
+        }
     }
 }
