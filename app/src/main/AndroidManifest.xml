@@ -18,11 +18,7 @@
             android:value="AIzaSyCy2R5XnjN0NYe_Z8d2hAeR1JswQJkWqaI" />
 
         <activity android:name=".activity.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".activity.Child" />
         <activity android:name=".activity.Parent" />
@@ -40,6 +36,13 @@
         </service>
         <!-- ./Firebase Notifications -->
         <activity android:name=".activity.Drawer"/>
+        <activity android:name=".activity.start">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

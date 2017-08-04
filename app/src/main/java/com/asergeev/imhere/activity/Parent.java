@@ -66,7 +66,14 @@ public class Parent extends AppCompatActivity implements
         setContentView(R.layout.parent);
 
         findViewById(R.id.sign_in_button).setOnClickListener(this);
-
+        ImageButton imageButton = (ImageButton) findViewById(R.id.imageButton1);
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Parent.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
 
