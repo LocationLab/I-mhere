@@ -59,19 +59,7 @@ public class Child extends AppCompatActivity {
         DatabaseReference myRef = database.getReference("codes");
         myRef.child(a).child("tokenID").setValue(regId);
         textView.setText(a);
-        mAuth = FirebaseAuth.getInstance();
-        mAuth.signInAnonymously()
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()){
-                            FirebaseUser user = mAuth.getCurrentUser();
-                        }else{
-                            Toast.makeText(Child.this, "Authentication failed.",
-                                                    Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+
         try{
             FirebaseMessaging.getInstance().subscribeToTopic(a);
         }catch (Exception e){
