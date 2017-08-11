@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/fbutton_color_peter_river"
+    android:background="@color/fbutton_color_belize_hole"
     android:orientation="vertical">
 
     <ImageButton
@@ -15,26 +15,71 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
 
-        android:background="@color/fbutton_color_peter_river"
+        android:background="@color/fbutton_color_belize_hole"
         app:srcCompat="@drawable/ic_keyboard_backspace" />
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="281dp"
-        android:layout_marginTop="36dp"
-        app:srcCompat="@drawable/parents" />
 
     <com.google.android.gms.common.SignInButton
         android:id="@+id/sign_in_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="169dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="150dp"
+        app:srcCompat="@drawable/pngparent"
+        android:layout_below="@+id/imageButton1"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="159dp" />
+        android:layout_marginTop="16dp" />
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btn1"
+        android:layout_alignLeft="@+id/btn1"
+        android:layout_alignStart="@+id/btn1"
+        android:layout_marginBottom="26dp"
+        android:hint="Введите ID "
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:theme="@style/MyEditText"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/btn1"
+
+        android:layout_width="wrap_content"
+        android:layout_height="58dp"
+
+
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+
+
+        android:layout_marginBottom="28dp"
+        android:background="@drawable/buttonshape"
+        android:text="готово"
+        android:visibility="invisible"
+        tools:layout_editor_absoluteX="53dp"
+        tools:layout_editor_absoluteY="310dp" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/sign_in_button"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="48dp"
+        android:gravity="center"
+        android:text="Введите ID, полученый в приложении ребенка"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:visibility="invisible" />
 </RelativeLayout>

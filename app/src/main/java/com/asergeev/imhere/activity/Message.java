@@ -1,5 +1,7 @@
 package com.asergeev.imhere.activity;
-
+/**
+ * Created by Andrey on 8/7/2017.
+ */
 public class Message {
 
     private String text;

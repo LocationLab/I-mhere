@@ -15,14 +15,19 @@ public class User extends AppCompatActivity {
 
     public String regID;
     public String email;
-
+    public String state;
     // Default constructor required for calls to
     // DataSnapshot.getValue(User.class)
     public User() {
     }
 
-    public User(String regID, String email) {
+    public String getState() {
+        return state;
+    }
+
+    public User(String regID, String email, String state) {
         this.regID = regID;
         this.email = email;
+        this.state = state;
     }
 }

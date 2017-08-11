@@ -30,7 +30,7 @@ import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 /**
- * Created by Belal on 18/09/16.
+ * Created by Andrey on 8/7/2017.
  */
 
 

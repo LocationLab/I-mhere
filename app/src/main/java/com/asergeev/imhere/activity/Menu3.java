@@ -12,7 +12,7 @@ import com.asergeev.imhere.R;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 /**
- * Created by Belal on 18/09/16.
+ * Created by Andrey on 8/7/2017.
  */
 
 

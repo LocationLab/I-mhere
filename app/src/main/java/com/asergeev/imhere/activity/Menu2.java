@@ -1,7 +1,6 @@
 package com.asergeev.imhere.activity;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -12,13 +11,12 @@ import android.widget.EditText;
 
 import com.asergeev.imhere.R;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 /**
- * Created by Belal on 18/09/16.
+ * Created by Andrey on 8/7/2017.
  */
 
 
@@ -39,7 +37,7 @@ public class Menu2 extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_menu_2, container, false);
 
         editText = (EditText) rootView.findViewById(R.id.editText);
-        btn = (Button) rootView.findViewById(R.id.btn);
+        btn = (Button) rootView.findViewById(R.id.btn1);
 
         mDatabase = FirebaseDatabase.getInstance();
         mFirebaseAuth = FirebaseAuth.getInstance();

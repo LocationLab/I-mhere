@@ -19,7 +19,9 @@ import android.widget.TextView;
 import com.asergeev.imhere.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
+/**
+ * Created by Andrey on 8/7/2017.
+ */
 public class Drawer extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 

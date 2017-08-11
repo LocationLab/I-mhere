@@ -10,57 +10,69 @@
     tools:context="com.asergeev.imhere.activity.MainActivity">
 
 
-        <Button
-            android:id="@+id/angry_btn"
-
-            android:layout_width="wrap_content"
-            android:layout_height="62dp"
-
-            android:layout_above="@+id/par"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="18dp"
-            android:background="@drawable/buttonshape"
-            android:text="Телефон ребенка"
-            android:textColor="#FFFFFF"
-            android:textSize="25sp"
-            tools:layout_editor_absoluteX="55dp"
-            tools:layout_editor_absoluteY="376dp" />
-
-        <Button
-            android:id="@+id/par"
-
-            android:layout_width="wrap_content"
-            android:layout_height="58dp"
-
-            android:layout_alignLeft="@+id/angry_btn"
-            android:layout_alignParentBottom="true"
-            android:layout_alignStart="@+id/angry_btn"
-            android:layout_marginBottom="59dp"
-            android:background="@drawable/buttonshape"
-            android:text="Телефон родителя"
-            android:textColor="#FFFFFF"
-            android:textSize="24sp"
-            tools:layout_editor_absoluteX="53dp"
-            tools:layout_editor_absoluteY="310dp" />
-
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
+            android:layout_height="250dp"
 
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="275dp">
+            android:id="@+id/relativeLayout"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
+
+
+
 
         </RelativeLayout>
 
         <ImageView
             android:id="@+id/imageView9"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="450dp"
             app:srcCompat="@drawable/flat"
+            android:layout_marginTop="90dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30dp"
+            android:textColor="@color/white"
+            android:text="Добро пожаловать"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="29dp" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="Выберите устройство"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView8"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="66dp"
+            android:background="@drawable/buttonshape"
+            android:text="Телефон родителя" />
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/buttonshape"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="34dp"
+            android:text="Телефон ребенка" />
 
 
 </RelativeLayout>

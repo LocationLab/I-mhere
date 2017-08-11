@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
+    android:background="@color/fbutton_color_belize_hole"
     android:layout_height="match_parent"
-    android:background="@color/back">
+    >
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="170dp"
         android:layout_height="40dp"
-        android:text="Введите код, полученный в приложении родителя"
+        android:text="Введите полученый код в приложение родителя"
         android:textColor="@color/white"
         android:textSize="14dp"
         android:gravity="center"
-        android:layout_centerVertical="true"
+        android:layout_below="@+id/imageView5"
         android:layout_centerHorizontal="true" />
 
 
@@ -22,19 +24,25 @@
         android:id="@+id/imageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+        android:background="@color/fbutton_color_belize_hole"
+        app:srcCompat="@drawable/ic_keyboard_backspace"
         android:layout_alignParentTop="true"
-        android:background="@color/back"
-        app:srcCompat="@drawable/ic_keyboard_backspace" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
-    <ImageView
-        android:id="@+id/imageView4"
+    <ImageButton
+        android:id="@+id/imageButton1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/children"
-        android:layout_above="@+id/textView2"
-        android:layout_below="@+id/imageButton" />
+        android:background="@color/fbutton_color_belize_hole"
+        android:visibility="invisible"
+        app:srcCompat="@drawable/ic_keyboard_backspace1"
+        android:layout_marginBottom="20dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/textView2"
+        android:layout_toEndOf="@+id/textView2"
+        android:layout_marginLeft="13dp"
+        android:layout_marginStart="13dp" />
 
     <TextView
         android:id="@+id/id"
@@ -42,9 +50,81 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView2"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="48dp"
-        android:textSize="40dp"
         android:textColor="@color/cardview_light_background"
-        android:text="" />
+        android:textSize="40dp" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/id"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="110dp"
+        android:text="или"
+        android:textColor="@color/white"
+        android:textSize="14dp" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        app:srcCompat="@drawable/baby" />
+
+    <TextView
+        android:id="@+id/idm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textColor="@color/white"
+        android:textSize="40dp"
+        android:gravity="center"
+        android:layout_below="@+id/textView2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="8dp" />
+
+    <Button
+        android:id="@+id/btn1"
+
+        android:layout_width="wrap_content"
+        android:layout_height="58dp"
+
+        android:layout_below="@+id/idm"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="17dp"
+        android:background="@drawable/buttonshape"
+        android:text="готово"
+
+
+        tools:layout_editor_absoluteX="53dp"
+        tools:layout_editor_absoluteY="310dp" />
+
+        <EditText
+            android:id="@+id/editText3"
+            android:layout_width="260dp"
+            android:layout_height="wrap_content"
+            android:hint="Введите ID своей группы"
+            android:layout_marginLeft="19dp"
+            android:layout_marginStart="19dp"
+            android:theme="@style/MyEditText"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:layout_marginBottom="9dp"
+            android:layout_alignBottom="@+id/imageButton1"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="присоединитесь к своей группе"
+        android:textColor="@color/white"
+        android:layout_below="@+id/textView7" />
+
 
 </RelativeLayout>

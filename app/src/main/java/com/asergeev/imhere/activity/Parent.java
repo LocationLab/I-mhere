@@ -9,7 +9,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.asergeev.imhere.R;
@@ -21,8 +24,10 @@ import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.auth.api.signin.SignInAccount;
 import com.google.android.gms.common.ConnectionResult;
 
+import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
@@ -39,6 +44,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 
 /**
@@ -58,14 +64,19 @@ public class Parent extends AppCompatActivity implements
     private FirebaseAuth.AuthStateListener mAuthListener;
     private GoogleApiClient mGoogleApiClient;
     private DatabaseReference mDatabase;
-
-
+    private SignInButton signInButton;
+    private Button button;
+    private TextView textView;
+    private EditText editText;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.parent);
-
-        findViewById(R.id.sign_in_button).setOnClickListener(this);
+        button = (Button) findViewById(R.id.btn1);
+        editText = (EditText) findViewById(R.id.editText);
+        textView = (TextView) findViewById(R.id.textView9);
+        signInButton =  (SignInButton) findViewById(R.id.sign_in_button);
+        signInButton.setOnClickListener(this);
         ImageButton imageButton = (ImageButton) findViewById(R.id.imageButton1);
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,6 +137,7 @@ public class Parent extends AppCompatActivity implements
             if (result.isSuccess()) {
                 GoogleSignInAccount account = result.getSignInAccount();
                 firebaseAuthWithGoogle(account);
+
             } else {
                 updateUI(null);
             }
@@ -171,9 +183,37 @@ public class Parent extends AppCompatActivity implements
                 mDatabase.child("users").child(user.getUid()).child("email").setValue(user.getEmail());
             }
 
-            Intent intent = new Intent(Parent.this, Drawer.class);
-            startActivity(intent);
-            finish();
+            signInButton.setVisibility(View.INVISIBLE);
+            button.setVisibility(View.VISIBLE);
+            textView.setVisibility(View.VISIBLE);
+            editText.setVisibility(View.VISIBLE);
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String a = "";
+                    a =  editText.getText().toString();
+                    if(a != null){
+                        SharedPreferences pref1 = getSharedPreferences("Pref", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = pref1.edit();
+                        editor.putString("Code", a);
+                        editor.commit();
+
+
+                        try{
+                            FirebaseMessaging.getInstance().subscribeToTopic(a);
+                        }catch (Exception e){
+                            Log.e("Error", String.valueOf(e));
+                        }
+
+                        Intent intent = new Intent(Parent.this, Drawer.class);
+                        startActivity(intent);
+                        finish();
+                    }
+
+                }
+            });
+
+
         }
     }
 

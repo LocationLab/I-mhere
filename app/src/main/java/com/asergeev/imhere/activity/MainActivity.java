@@ -17,34 +17,54 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.asergeev.imhere.Manifest;
 import com.asergeev.imhere.R;
 import com.asergeev.imhere.app.Config;
 import com.asergeev.imhere.util.NotificationUtils;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.messaging.FirebaseMessaging;
-
+/**
+ * Created by Andrey on 8/7/2017.
+ */
 public class MainActivity extends AppCompatActivity {
     Button child;
     Button par;
+    private static final String MY_PREFERENCES = "my_preferences";
     private static final String TAG = MainActivity.class.getSimpleName();
     private BroadcastReceiver mRegistrationBroadcastReceiver;
     private TextView txtRegId, txtMessage;
     private FirebaseAuth mAuth;
+    private boolean first = true;
+    SharedPreferences sPref;
+    final String SAVED_TEXT = "saved_text";
+    private DatabaseReference mDatabase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+
         mAuth = FirebaseAuth.getInstance();
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser == null) {
+
+
+        if (currentUser == null ) {
             // No user is signed in
+            Boolean value;
+            SharedPreferences pref1 = getSharedPreferences("Pref", MODE_PRIVATE);
+            value= pref1.getBoolean("Value", false);
+            Log.d("DMT", String.valueOf(value));
+            if(value){
+                Intent intent = new Intent(MainActivity.this, Children_sec.class);
+                startActivity(intent);
+                finish();
+            }
+
             setContentView(R.layout.activity_main);
 
-            child = (Button) findViewById(R.id.angry_btn);
+            child = (Button) findViewById(R.id.button3);
 
             child.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -55,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
 
                 }
             });
-            par = (Button) findViewById(R.id.par);
+            par = (Button) findViewById(R.id.button2);
             par.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -164,8 +184,8 @@ public class MainActivity extends AppCompatActivity {
         if (!TextUtils.isEmpty(regId))
 
             Log.e("ID",regId);
-        else
-            Toast.makeText(this,"Problem",Toast.LENGTH_SHORT).show();
+
+
 
     }
     @Override
