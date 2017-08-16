@@ -3,6 +3,7 @@ package com.asergeev.imhere.activity;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.asergeev.imhere.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -29,6 +31,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import static android.content.Context.MODE_PRIVATE;
+
 /**
  * Created by Andrey on 8/7/2017.
  */
@@ -40,7 +44,7 @@ public class Menu1 extends Fragment {
     private UiSettings mUiSettings;
     private static final int PERMISSION_CALLBACK_CONSTANT = 101;
     private static final int REQUEST_PERMISSION_SETTING = 102;
-
+    private TextView textView;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -52,50 +56,13 @@ public class Menu1 extends Fragment {
 
 
         View rootView = inflater.inflate(R.layout.fragment_menu_1, container, false);
-        mMapView = (MapView) rootView.findViewById(R.id.mapView);
-        mMapView.onCreate(savedInstanceState);
-        mMapView.onResume(); // needed to get the map to display immediately
+        textView = (TextView) rootView.findViewById(R.id.textView14);
+        String a;
+        SharedPreferences pref1 = getContext().getSharedPreferences("Pref", MODE_PRIVATE);
+        a= pref1.getString("Code", "");
+        textView.setText(a);
 
-        try {
-            MapsInitializer.initialize(getActivity().getApplicationContext());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
-        mMapView.getMapAsync(new OnMapReadyCallback() {
-            @Override
-            public void onMapReady(GoogleMap mMap) {
-                googleMap = mMap;
-            /*
-                try {
-                    boolean success = googleMap.setMapStyle(
-                            MapStyleOptions.loadRawResourceStyle(
-                                    getContext(), R.raw.map
-                            )
-                    );
-                    if (!success){
-                        Log.e("error","Style parcing error");
-
-                    }
-                }catch (Resources.NotFoundException e){
-                    Log.e("Error", "Can't find style. Error: ", e);
-                }
-                */
-                if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    // TODO: Consider calling
-                    //    ActivityCompat#requestPermissions
-                    // here to request the missing permissions, and then overriding
-                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                    //                                          int[] grantResults)
-                    // to handle the case where the user grants the permission. See the documentation
-                    // for ActivityCompat#requestPermissions for more details.
-                    return;
-                }
-                googleMap.setMyLocationEnabled(true);
-                googleMap.setBuildingsEnabled(true);
-
-                }
-            });
             return rootView;
 
 
@@ -121,23 +88,6 @@ public class Menu1 extends Fragment {
     }
 
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        mMapView.onPause();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mMapView.onDestroy();
-    }
-
-    @Override
-    public void onLowMemory() {
-        super.onLowMemory();
-        mMapView.onLowMemory();
-    }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {

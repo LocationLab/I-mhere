@@ -68,7 +68,7 @@ public class Children_sec extends AppCompatActivity implements LocationListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.secure);
         textView =(TextView)findViewById(R.id.textView5);
-        button = (Button)findViewById(R.id.btn1233);
+        button = (Button)findViewById(R.id.btn223);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

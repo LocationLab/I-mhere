@@ -50,11 +50,19 @@
         android:layout_toRightOf="@+id/textView4" />
 
     <Button
-        android:id="@+id/btn1233"
+        android:id="@+id/btn223"
+
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="58dp"
+
+
+        android:background="@drawable/buttonshape"
+        android:text="Выбрать безопасное место"
+
+
+        tools:layout_editor_absoluteX="53dp"
+        tools:layout_editor_absoluteY="310dp"
+        android:layout_marginBottom="46dp"
         android:layout_above="@+id/textView4"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="60dp"
-        android:text="Button" />
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

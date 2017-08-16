@@ -103,9 +103,7 @@ public class Drawer extends AppCompatActivity
             case R.id.nav_menu1:
                 fragment = new Menu1();
                 break;
-            case R.id.nav_menu2:
-                fragment = new Menu2();
-                break;
+
             case R.id.nav_menu3:
                 fragment = new Menu3();
                 break;

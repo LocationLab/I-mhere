@@ -36,22 +36,7 @@ public class Menu2 extends Fragment {
         //change R.layout.yourlayoutfilename for each of your fragments
         View rootView = inflater.inflate(R.layout.fragment_menu_2, container, false);
 
-        editText = (EditText) rootView.findViewById(R.id.editText);
-        btn = (Button) rootView.findViewById(R.id.btn1);
 
-        mDatabase = FirebaseDatabase.getInstance();
-        mFirebaseAuth = FirebaseAuth.getInstance();
-
-
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String push = editText.getText().toString();
-                mMessagesReference = mDatabase.getReference().child("messages");
-                Message message = new Message("Test", "admin", push);
-                mMessagesReference.push().setValue(message);
-            }
-        });
         return rootView;
     }
 
@@ -67,6 +52,6 @@ public class Menu2 extends Fragment {
 
 
 
-    };
     }
+}
 

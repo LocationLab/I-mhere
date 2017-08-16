@@ -7,6 +7,7 @@ import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.support.v4.app.NotificationCompat;
@@ -32,7 +33,7 @@ public class GeofenceTransitionsIntentService extends IntentService {
     private DatabaseReference mMessagesReference;
     private FirebaseAuth mFirebaseAuth;
     private static final String TAG = "GeofenceTransitions";
-
+    private String a;
     public GeofenceTransitionsIntentService() {
         super("GeofenceTransitionsIntentService");
     }
@@ -41,6 +42,9 @@ public class GeofenceTransitionsIntentService extends IntentService {
     protected void onHandleIntent(Intent intent) {
 
         Log.i(TAG, "onHandleIntent");
+
+        SharedPreferences pref1 = getSharedPreferences("Pref", MODE_PRIVATE);
+        a= pref1.getString("Code", "");
         mDatabase = FirebaseDatabase.getInstance();
         mFirebaseAuth = FirebaseAuth.getInstance();
         GeofencingEvent geofencingEvent = GeofencingEvent.fromIntent(intent);
@@ -58,14 +62,14 @@ public class GeofenceTransitionsIntentService extends IntentService {
             showNotification("Entered", "Entered the Location");
 
             mMessagesReference = mDatabase.getReference().child("messages");
-            Message message = new Message("Уведомление", "Пользователь вошел в зону", null);
+            Message message = new Message("Уведомление", "Пользователь вошел в зону", a);
             mMessagesReference.push().setValue(message);
         }
         else if(geofenceTransition == Geofence.GEOFENCE_TRANSITION_EXIT) {
             Log.i(TAG, "Showing Notification...");
             showNotification("Exited", "Exited the Location");
             mMessagesReference = mDatabase.getReference().child("messages");
-            Message message = new Message("Уведомление", "Пользователь вышел из зоны", null);
+            Message message = new Message("Уведомление", "Пользователь вышел из зоны", a);
             mMessagesReference.push().setValue(message);
         } else {
             // Log the error.

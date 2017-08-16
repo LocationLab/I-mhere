@@ -68,6 +68,7 @@ public class Parent extends AppCompatActivity implements
     private Button button;
     private TextView textView;
     private EditText editText;
+    private TextView textView1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,6 +77,7 @@ public class Parent extends AppCompatActivity implements
         editText = (EditText) findViewById(R.id.editText);
         textView = (TextView) findViewById(R.id.textView9);
         signInButton =  (SignInButton) findViewById(R.id.sign_in_button);
+        textView1 = (TextView) findViewById(R.id.text);
         signInButton.setOnClickListener(this);
         ImageButton imageButton = (ImageButton) findViewById(R.id.imageButton1);
         imageButton.setOnClickListener(new View.OnClickListener() {
@@ -182,7 +184,7 @@ public class Parent extends AppCompatActivity implements
             if (user.getEmail() != null) {
                 mDatabase.child("users").child(user.getUid()).child("email").setValue(user.getEmail());
             }
-
+            textView1.setVisibility(View.INVISIBLE);
             signInButton.setVisibility(View.INVISIBLE);
             button.setVisibility(View.VISIBLE);
             textView.setVisibility(View.VISIBLE);
