@@ -48,7 +48,6 @@
         android:layout_alignRight="@+id/btn1"
         android:layout_alignTop="@+id/textView4"
         android:layout_toRightOf="@+id/textView4" />
-
     <Button
         android:id="@+id/btn223"
 

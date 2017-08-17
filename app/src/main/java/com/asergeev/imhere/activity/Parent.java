@@ -184,18 +184,19 @@ public class Parent extends AppCompatActivity implements
             if (user.getEmail() != null) {
                 mDatabase.child("users").child(user.getUid()).child("email").setValue(user.getEmail());
             }
-            textView1.setVisibility(View.INVISIBLE);
+
             signInButton.setVisibility(View.INVISIBLE);
             button.setVisibility(View.VISIBLE);
             textView.setVisibility(View.VISIBLE);
             editText.setVisibility(View.VISIBLE);
+            textView1.setVisibility(View.INVISIBLE);
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     String a = "";
                     a =  editText.getText().toString();
                     if(a != null){
-                        SharedPreferences pref1 = getSharedPreferences("Pref", MODE_PRIVATE);
+                    SharedPreferences pref1 = getSharedPreferences("Pref", MODE_PRIVATE);
                         SharedPreferences.Editor editor = pref1.edit();
                         editor.putString("Code", a);
                         editor.commit();
@@ -207,11 +208,11 @@ public class Parent extends AppCompatActivity implements
                             Log.e("Error", String.valueOf(e));
                         }
 
-                        Intent intent = new Intent(Parent.this, Drawer.class);
-                        startActivity(intent);
-                        finish();
-                    }
 
+                  }
+                    Intent intent = new Intent(Parent.this, Drawer.class);
+                    startActivity(intent);
+                    finish();
                 }
             });
 

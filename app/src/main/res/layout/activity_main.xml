@@ -58,12 +58,11 @@
             android:id="@+id/button2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/textView8"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="66dp"
             android:background="@drawable/buttonshape"
-            android:text="Телефон родителя"
-            android:layout_above="@+id/button3"
-            android:layout_alignLeft="@+id/textView6"
-            android:layout_alignStart="@+id/textView6"
-            android:layout_marginBottom="13dp" />
+            android:text="Телефон родителя" />
 
         <Button
             android:id="@+id/button3"
@@ -71,10 +70,10 @@
             android:layout_height="wrap_content"
             android:background="@drawable/buttonshape"
             android:text="Телефон ребенка"
-            android:layout_alignBottom="@+id/imageView9"
+            android:layout_below="@+id/button2"
             android:layout_alignLeft="@+id/button2"
             android:layout_alignStart="@+id/button2"
-            android:layout_marginBottom="32dp" />
+            android:layout_marginTop="20dp" />
 
 
 </RelativeLayout>

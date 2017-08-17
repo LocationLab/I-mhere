@@ -1,35 +1,19 @@
 package com.asergeev.imhere.activity;
 
 import android.Manifest;
-import android.app.Activity;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.asergeev.imhere.R;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapView;
-import com.google.android.gms.maps.MapsInitializer;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.UiSettings;
-import com.google.android.gms.maps.model.CameraPosition;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MapStyleOptions;
-import com.google.android.gms.maps.model.MarkerOptions;
+
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -39,9 +23,7 @@ import static android.content.Context.MODE_PRIVATE;
 
 
 public class Menu1 extends Fragment {
-    MapView mMapView;
-    private GoogleMap googleMap;
-    private UiSettings mUiSettings;
+
     private static final int PERMISSION_CALLBACK_CONSTANT = 101;
     private static final int REQUEST_PERMISSION_SETTING = 102;
     private TextView textView;
@@ -61,6 +43,10 @@ public class Menu1 extends Fragment {
         SharedPreferences pref1 = getContext().getSharedPreferences("Pref", MODE_PRIVATE);
         a= pref1.getString("Code", "");
         textView.setText(a);
+
+
+
+
 
 
             return rootView;
@@ -88,6 +74,23 @@ public class Menu1 extends Fragment {
     }
 
 
+    @Override
+    public void onPause() {
+        super.onPause();
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+
+    }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {

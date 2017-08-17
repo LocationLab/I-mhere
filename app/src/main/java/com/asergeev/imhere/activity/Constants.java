@@ -1,8 +1,6 @@
 package com.asergeev.imhere.activity;
 
-import com.google.android.gms.maps.model.LatLng;
 
-import java.util.HashMap;
 
 /**
  * Created by Andrey on 8/7/2017.
@@ -27,7 +25,7 @@ public class Constants {
 
      */
 
-    public static final HashMap<String, LatLng> AREA_LANDMARKS = new HashMap<String, LatLng>();
+
 
 
 

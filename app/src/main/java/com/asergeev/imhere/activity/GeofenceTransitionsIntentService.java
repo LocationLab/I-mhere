@@ -40,11 +40,9 @@ public class GeofenceTransitionsIntentService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-
-        Log.i(TAG, "onHandleIntent");
-
         SharedPreferences pref1 = getSharedPreferences("Pref", MODE_PRIVATE);
         a= pref1.getString("Code", "");
+        Log.i(TAG, "onHandleIntent");
         mDatabase = FirebaseDatabase.getInstance();
         mFirebaseAuth = FirebaseAuth.getInstance();
         GeofencingEvent geofencingEvent = GeofencingEvent.fromIntent(intent);
@@ -59,17 +57,17 @@ public class GeofenceTransitionsIntentService extends IntentService {
 
         Log.i(TAG, "geofenceTransition = " + geofenceTransition + " Enter : " + Geofence.GEOFENCE_TRANSITION_ENTER + "Exit : " + Geofence.GEOFENCE_TRANSITION_EXIT);
         if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER || geofenceTransition == Geofence.GEOFENCE_TRANSITION_DWELL){
-            showNotification("Entered", "Entered the Location");
+            showNotification("Уведомление", "Вы пришли");
 
             mMessagesReference = mDatabase.getReference().child("messages");
-            Message message = new Message("Уведомление", "Пользователь вошел в зону", a);
+            Message message = new Message("Уведомление", "Я на месте", a);
             mMessagesReference.push().setValue(message);
         }
         else if(geofenceTransition == Geofence.GEOFENCE_TRANSITION_EXIT) {
             Log.i(TAG, "Showing Notification...");
-            showNotification("Exited", "Exited the Location");
+            showNotification("Уведомление", "Вы ушли");
             mMessagesReference = mDatabase.getReference().child("messages");
-            Message message = new Message("Уведомление", "Пользователь вышел из зоны", a);
+            Message message = new Message("Уведомление", "Я вышел", a);
             mMessagesReference.push().setValue(message);
         } else {
             // Log the error.
@@ -91,8 +89,8 @@ public class GeofenceTransitionsIntentService extends IntentService {
 
         // 3. Create and send a notification
         Notification notification = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle("Title")
+                .setSmallIcon(R.mipmap.gps)
+                .setContentTitle("Уведомление")
                 .setContentText(text)
                 .setContentIntent(pendingNotificationIntent)
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(bigText))
