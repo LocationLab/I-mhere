@@ -27,23 +27,29 @@ import java.util.UUID;
  */
 
 public class Child extends AppCompatActivity {
-    ImageButton imageButton;
-    TextView textView;
     private FirebaseAuth mAuth;
-    Button button;
+
+    ImageButton imageButton;
     ImageButton imageButton1;
+    TextView textView;
+    Button button;
     EditText editText;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.child);
+
         final String a =  generateString();
         Log.e("IDa",a);
+
         textView = (TextView)findViewById(R.id.idm);
         imageButton = (ImageButton) findViewById(R.id.imageButton);
         imageButton1 = (ImageButton) findViewById(R.id.imageButton1);
         button = (Button) findViewById(R.id.btn1);
         editText = (EditText) findViewById(R.id.editText3);
+
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -62,6 +68,7 @@ public class Child extends AppCompatActivity {
 
             }
         });
+
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,6 +77,7 @@ public class Child extends AppCompatActivity {
 
             }
         });
+
         imageButton1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,8 +94,8 @@ public class Child extends AppCompatActivity {
 
             }
         });
-       // final boolean first = reader.getBoolean("is_first", true);
-        textView.setText(a);
+
+        textView.setText(a); // set text
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,6 +125,7 @@ public class Child extends AppCompatActivity {
 
 
     }
+
     public static String generateString() {
         String uuid = UUID.randomUUID().toString().replace("-","").substring(0,6);
         return uuid;

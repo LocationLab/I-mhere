@@ -12,7 +12,6 @@ import com.google.firebase.database.IgnoreExtraProperties;
  */
 @IgnoreExtraProperties
 public class User extends AppCompatActivity {
-
     public String regID;
     public String email;
     public String state;
@@ -24,7 +23,6 @@ public class User extends AppCompatActivity {
     public String getState() {
         return state;
     }
-
     public User(String regID, String email, String state) {
         this.regID = regID;
         this.email = email;

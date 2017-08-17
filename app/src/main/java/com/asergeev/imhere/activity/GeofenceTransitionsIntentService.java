@@ -29,11 +29,13 @@ import java.util.List;
  */
 
 public class GeofenceTransitionsIntentService extends IntentService {
+
     private FirebaseDatabase mDatabase;
     private DatabaseReference mMessagesReference;
     private FirebaseAuth mFirebaseAuth;
     private static final String TAG = "GeofenceTransitions";
     private String a;
+
     public GeofenceTransitionsIntentService() {
         super("GeofenceTransitionsIntentService");
     }
@@ -43,22 +45,21 @@ public class GeofenceTransitionsIntentService extends IntentService {
         SharedPreferences pref1 = getSharedPreferences("Pref", MODE_PRIVATE);
         a= pref1.getString("Code", "");
         Log.i(TAG, "onHandleIntent");
+
         mDatabase = FirebaseDatabase.getInstance();
         mFirebaseAuth = FirebaseAuth.getInstance();
+
         GeofencingEvent geofencingEvent = GeofencingEvent.fromIntent(intent);
         if (geofencingEvent.hasError()) {
-
             Log.e(TAG, "Goefencing Error " + geofencingEvent.getErrorCode());
             return;
         }
-
         // Get the transition type.
         int geofenceTransition = geofencingEvent.getGeofenceTransition();
 
         Log.i(TAG, "geofenceTransition = " + geofenceTransition + " Enter : " + Geofence.GEOFENCE_TRANSITION_ENTER + "Exit : " + Geofence.GEOFENCE_TRANSITION_EXIT);
         if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER || geofenceTransition == Geofence.GEOFENCE_TRANSITION_DWELL){
             showNotification("Уведомление", "Вы пришли");
-
             mMessagesReference = mDatabase.getReference().child("messages");
             Message message = new Message("Уведомление", "Я на месте", a);
             mMessagesReference.push().setValue(message);
@@ -77,16 +78,13 @@ public class GeofenceTransitionsIntentService extends IntentService {
     }
 
     public void showNotification(String text, String bigText) {
-
         // 1. Create a NotificationManager
         NotificationManager notificationManager =
                 (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
-
         // 2. Create a PendingIntent for AllGeofencesActivity
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingNotificationIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
         // 3. Create and send a notification
         Notification notification = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.mipmap.gps)

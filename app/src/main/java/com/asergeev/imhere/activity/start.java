@@ -15,13 +15,15 @@ import com.asergeev.imhere.R;
  */
 
 public class start extends AppCompatActivity {
-// Splash screen timer
+    // Splash screen timer
     private static int SPLASH_TIME_OUT = 3000;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.start);
+
         ImageView imageView  = (ImageView) findViewById(R.id.imageView);
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

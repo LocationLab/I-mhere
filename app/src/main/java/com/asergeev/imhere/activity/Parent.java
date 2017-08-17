@@ -52,11 +52,8 @@ import com.google.firebase.messaging.FirebaseMessaging;
  */
 
 public class Parent extends AppCompatActivity implements
-
         GoogleApiClient.OnConnectionFailedListener,
-
         View.OnClickListener {
-
 
     private static final String TAG = "LogInStatus";
     private static final int RC_SIGN_IN = 9001;
@@ -69,17 +66,21 @@ public class Parent extends AppCompatActivity implements
     private TextView textView;
     private EditText editText;
     private TextView textView1;
+    private ImageButton imageButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.parent);
+
         button = (Button) findViewById(R.id.btn1);
         editText = (EditText) findViewById(R.id.editText);
         textView = (TextView) findViewById(R.id.textView9);
         signInButton =  (SignInButton) findViewById(R.id.sign_in_button);
         textView1 = (TextView) findViewById(R.id.text);
+        imageButton = (ImageButton) findViewById(R.id.imageButton1);
+
         signInButton.setOnClickListener(this);
-        ImageButton imageButton = (ImageButton) findViewById(R.id.imageButton1);
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,8 +88,8 @@ public class Parent extends AppCompatActivity implements
                 startActivity(intent);
             }
         });
-        mDatabase = FirebaseDatabase.getInstance().getReference();
 
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -101,7 +102,6 @@ public class Parent extends AppCompatActivity implements
                 .build();
 
         mAuth = FirebaseAuth.getInstance();
-
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -123,6 +123,7 @@ public class Parent extends AppCompatActivity implements
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
     }
+
     @Override
     public void onStop() {
         super.onStop();
@@ -139,16 +140,14 @@ public class Parent extends AppCompatActivity implements
             if (result.isSuccess()) {
                 GoogleSignInAccount account = result.getSignInAccount();
                 firebaseAuthWithGoogle(account);
-
             } else {
                 updateUI(null);
             }
         }
     }
+
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
-
-
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -160,7 +159,6 @@ public class Parent extends AppCompatActivity implements
                             Toast.makeText(Parent.this, R.string.authentication_error_message,
                                     Toast.LENGTH_SHORT).show();
                         }
-
                     }
                 });
     }
@@ -173,50 +171,47 @@ public class Parent extends AppCompatActivity implements
     private void updateUI(FirebaseUser user) {
         SharedPreferences pref = getApplicationContext().getSharedPreferences(Config.SHARED_PREF, 0);
         String regId = pref.getString("regId", null);
-
         if (user != null) {
             if (user.getDisplayName() != null) {
                 mDatabase.child("users").child(user.getUid()).child("name").setValue(user.getDisplayName());
                 mDatabase.child("users").child(user.getUid()).child("regID").setValue(regId);
-            } else {
-
-            }
+            } else {}
             if (user.getEmail() != null) {
                 mDatabase.child("users").child(user.getUid()).child("email").setValue(user.getEmail());
             }
+
+            /**
+             * Change UI
+             */
 
             signInButton.setVisibility(View.INVISIBLE);
             button.setVisibility(View.VISIBLE);
             textView.setVisibility(View.VISIBLE);
             editText.setVisibility(View.VISIBLE);
             textView1.setVisibility(View.INVISIBLE);
+
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     String a = "";
                     a =  editText.getText().toString();
                     if(a != null){
-                    SharedPreferences pref1 = getSharedPreferences("Pref", MODE_PRIVATE);
+                        SharedPreferences pref1 = getSharedPreferences("Pref", MODE_PRIVATE);
                         SharedPreferences.Editor editor = pref1.edit();
                         editor.putString("Code", a);
                         editor.commit();
-
 
                         try{
                             FirebaseMessaging.getInstance().subscribeToTopic(a);
                         }catch (Exception e){
                             Log.e("Error", String.valueOf(e));
                         }
-
-
                   }
                     Intent intent = new Intent(Parent.this, Drawer.class);
                     startActivity(intent);
                     finish();
                 }
             });
-
-
         }
     }
 
@@ -233,8 +228,4 @@ public class Parent extends AppCompatActivity implements
             signIn();
         }
     }
-
-
-
-
 }

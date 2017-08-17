@@ -21,6 +21,11 @@ import com.google.firebase.database.FirebaseDatabase;
 
 
 public class Menu2 extends Fragment {
+
+    /**
+     * THIS FRAGMENT ONLY FOR TESTING
+     */
+
     private FirebaseDatabase mDatabase;
     private DatabaseReference mMessagesReference;
     private ChildEventListener mChildEventListener;
@@ -29,20 +34,17 @@ public class Menu2 extends Fragment {
     private FirebaseAuth mAuth;
     EditText editText;
     Button btn;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         //returning our layout file
         //change R.layout.yourlayoutfilename for each of your fragments
         View rootView = inflater.inflate(R.layout.fragment_menu_2, container, false);
-
         editText = (EditText) rootView.findViewById(R.id.editText);
         btn = (Button) rootView.findViewById(R.id.btn1);
-
         mDatabase = FirebaseDatabase.getInstance();
         mFirebaseAuth = FirebaseAuth.getInstance();
-
-
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,18 +57,10 @@ public class Menu2 extends Fragment {
         return rootView;
     }
 
-
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         //you can set the title for your toolbar here for different fragments different titles
         getActivity().setTitle("Instuction");
-
-
-
-
-
-
-    };
+         };
     }
-

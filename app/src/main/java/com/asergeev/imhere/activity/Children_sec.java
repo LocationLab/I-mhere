@@ -47,35 +47,37 @@ import java.util.UUID;
 
 public class Children_sec extends AppCompatActivity implements LocationListener {
 
-    PendingIntent mGeofencePendingIntent;
     public static final int CONNECTION_FAILURE_RESOLUTION_REQUEST = 100;
-    private List<Geofence> mGeofenceList;
-    private GoogleApiClient mGoogleApiClient;
-    public static final String TAG = "Activity";
-    LocationRequest mLocationRequest;
     double currentLatitude = 55.457559, currentLongitude = 38.159159;
-    Boolean locationFound;
     protected LocationManager locationManager;
     protected LocationListener locationListener;
-    TextView textView;
+    public static final String TAG = "Activity";
+    private List<Geofence> mGeofenceList;
+    private GoogleApiClient mGoogleApiClient;
     private String a;
     private Button button;
     private double Latitude = 0;
     private double Longtitude = 0;
     private int PLACE_PICKER_REQUEST = 1;
     private static Context context;
+    private TextView textView;
+    PendingIntent mGeofencePendingIntent;
+    LocationRequest mLocationRequest;
+    Boolean locationFound;
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.secure);
+
         textView =(TextView)findViewById(R.id.textView5);
         button = (Button)findViewById(R.id.btn223);
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
-
                 try {
                     startActivityForResult(builder.build(Children_sec.this), PLACE_PICKER_REQUEST);
                 } catch (GooglePlayServicesRepairableException e) {
@@ -85,51 +87,41 @@ public class Children_sec extends AppCompatActivity implements LocationListener 
                     e.printStackTrace();
 
                 }
-
             }
         });
+
         SharedPreferences pref1 = getSharedPreferences("Pref", MODE_PRIVATE);
         a= pref1.getString("Code", "");
         textView.setText(a);
         Log.d(a,a);
-
-
-
-
-
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
         if (requestCode == PLACE_PICKER_REQUEST) {
         if (resultCode == RESULT_OK) {
-             Place place = PlacePicker.getPlace(data, this);
-             String toastMsg = String.format("Place: %s", place.getName());
+
+            Place place = PlacePicker.getPlace(data, this);
+            String toastMsg = String.format("Place: %s", place.getName());
             Latitude = place.getLatLng().latitude;
             Longtitude =place.getLatLng().longitude;
-                Toast.makeText(this, toastMsg, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, toastMsg, Toast.LENGTH_LONG).show();
 
 
                 if(Latitude != 0 && Longtitude != 0) {
                     mGeofenceList = new ArrayList<Geofence>();
-
                     int resp = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
                     if (resp == ConnectionResult.SUCCESS) {
-
                         initGoogleAPIClient();
-
                         createGeofences(Latitude, Longtitude);
-
                     } else {
                         Log.e(TAG, "Your Device doesn't support Google Play Services.");
                     }
-
                     // Create the LocationRequest object
                     mLocationRequest = LocationRequest.create()
                             .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
                             .setInterval(1 * 1000)        // 10 seconds, in milliseconds
                             .setFastestInterval(1 * 1000); // 1 second, in milliseconds
-
-
                     }
                 }
          }
@@ -152,26 +144,16 @@ public class Children_sec extends AppCompatActivity implements LocationListener 
 
                     if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                         // TODO: Consider calling
-                        //    ActivityCompat#requestPermissions
-                        // here to request the missing permissions, and then overriding
-                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                        //                                          int[] grantResults)
-                        // to handle the case where the user grants the permission. See the documentation
-                        // for ActivityCompat#requestPermissions for more details.
                         return;
                     }
                     Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-
                     if (location == null) {
                         LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, (com.google.android.gms.location.LocationListener) Children_sec.this);
-
                     } else {
                         //If everything went fine lets get latitude and longitude
                         currentLatitude = location.getLatitude();
                         currentLongitude = location.getLongitude();
-
                         Log.i(TAG, currentLatitude + " WORKS " + currentLongitude);
-
                         //createGeofences(currentLatitude, currentLongitude);
                         //registerGeofences(mGeofenceList);
                     }
@@ -187,14 +169,12 @@ public class Children_sec extends AppCompatActivity implements LocationListener 
                             public void onResult(Status status) {
                                 if (status.isSuccess()) {
                                     Log.i(TAG, "Saving Geofence");
-
                                 } else {
                                     Log.e(TAG, "Registering geofence failed: " + status.getStatusMessage() +
                                             " : " + status.getStatusCode());
                                 }
                             }
                         });
-
                     } catch (SecurityException securityException) {
                         // Catch exception generated if the app does not use ACCESS_FINE_LOCATION permission.
                         Log.e(TAG, "Error");
@@ -203,9 +183,7 @@ public class Children_sec extends AppCompatActivity implements LocationListener 
 
                 @Override
                 public void onConnectionSuspended(int i) {
-
                     Log.e(TAG, "onConnectionSuspended");
-
                 }
             };
 
@@ -216,7 +194,6 @@ public class Children_sec extends AppCompatActivity implements LocationListener 
                     Log.e(TAG, "onConnectionFailed");
                 }
             };
-
     /**
      * Create a Geofence list
      */
@@ -258,18 +235,12 @@ public class Children_sec extends AppCompatActivity implements LocationListener 
     }
 
     @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-
-    }
+    public void onStatusChanged(String provider, int status, Bundle extras) {}
 
     @Override
-    public void onProviderEnabled(String provider) {
-
-    }
+    public void onProviderEnabled(String provider) {}
 
     @Override
-    public void onProviderDisabled(String provider) {
-
-    }
+    public void onProviderDisabled(String provider) {}
 
 }
