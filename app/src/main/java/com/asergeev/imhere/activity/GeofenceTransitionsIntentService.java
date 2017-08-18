@@ -61,7 +61,7 @@ public class GeofenceTransitionsIntentService extends IntentService {
         if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER || geofenceTransition == Geofence.GEOFENCE_TRANSITION_DWELL){
             showNotification("Уведомление", "Вы пришли");
             mMessagesReference = mDatabase.getReference().child("messages");
-            Message message = new Message("Уведомление", "Я на месте", a);
+            Message message = new Message("Уведомление", "Я здесь", a);
             mMessagesReference.push().setValue(message);
         }
         else if(geofenceTransition == Geofence.GEOFENCE_TRANSITION_EXIT) {
