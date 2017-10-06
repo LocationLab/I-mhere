@@ -3,5 +3,5 @@ App for Android I'm Here
 <<<<<<< HEAD
 
 =======
-Скачать https://goo.gl/aM9hKV upd 22 aug 2017
+Скачать https://goo.gl/tpiMKm 6 sept 2017
 
