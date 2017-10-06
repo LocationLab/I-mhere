@@ -11,7 +11,7 @@
         android:id="@+id/textView2"
         android:layout_width="170dp"
         android:layout_height="40dp"
-        android:text="Введите полученый код в приложение родителя"
+        android:text="Введите полученный код в приложение родителя"
         android:textColor="@color/white"
         android:textSize="14dp"
         android:gravity="center"

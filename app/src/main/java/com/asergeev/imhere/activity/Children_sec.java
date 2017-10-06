@@ -77,6 +77,7 @@ public class Children_sec extends AppCompatActivity implements LocationListener 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
                 try {
                     startActivityForResult(builder.build(Children_sec.this), PLACE_PICKER_REQUEST);
@@ -93,6 +94,8 @@ public class Children_sec extends AppCompatActivity implements LocationListener 
         SharedPreferences pref1 = getSharedPreferences("Pref", MODE_PRIVATE);
         a= pref1.getString("Code", "");
         textView.setText(a);
+
+
         Log.d(a,a);
     }
 
@@ -100,12 +103,15 @@ public class Children_sec extends AppCompatActivity implements LocationListener 
 
         if (requestCode == PLACE_PICKER_REQUEST) {
         if (resultCode == RESULT_OK) {
-
+            SharedPreferences pref1 = getSharedPreferences("Pref", MODE_PRIVATE);
             Place place = PlacePicker.getPlace(data, this);
-            String toastMsg = String.format("Place: %s", place.getName());
+            String toastMsg = String.format("Place: %s", place.getAddress());
             Latitude = place.getLatLng().latitude;
             Longtitude =place.getLatLng().longitude;
             Toast.makeText(this, toastMsg, Toast.LENGTH_LONG).show();
+            SharedPreferences.Editor editor = pref1.edit();
+            editor.putString("Place", toastMsg);
+            editor.commit();
 
 
                 if(Latitude != 0 && Longtitude != 0) {
@@ -198,9 +204,12 @@ public class Children_sec extends AppCompatActivity implements LocationListener 
      * Create a Geofence list
      */
     public void createGeofences(double latitude, double longitude) {
+        SharedPreferences pref1 = getSharedPreferences("Pref", MODE_PRIVATE);
+
         String id = UUID.randomUUID().toString();
+        a= pref1.getString("Place", id);
         Geofence fence = new Geofence.Builder()
-                .setRequestId(id)
+                .setRequestId(a)
                 .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER | Geofence.GEOFENCE_TRANSITION_EXIT)
                 .setCircularRegion(latitude, longitude, 100)
                 .setExpirationDuration(Geofence.NEVER_EXPIRE)

@@ -56,7 +56,7 @@
 
 
         android:background="@drawable/buttonshape"
-        android:text="Выбрать безопасное место"
+        android:text="Добавить местоположение"
 
 
         tools:layout_editor_absoluteX="53dp"
